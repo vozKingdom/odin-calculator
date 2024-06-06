@@ -1,4 +1,105 @@
-h1 {
-    color: red;
-    text-align: center;
+
+body{
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    
+    margin-top: 100px;
+
+    background-image: url('./img/wp13653833.png');
+}
+
+.calculator-flex-container{
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: flex-end;
+    gap: 15px;
+
+
+    padding: 22px;
+    border: black 5px groove;
+    border-radius: 13px;
+
+    width: 333px;
+
+    background-color: rgba(128, 128, 128, 0.863);
+}
+
+.calculator-brand{
+    /* border: red 1px solid; */
+    align-self: flex-end;
+}
+
+.calculator-screen {
+    border: rgba(128, 128, 128, 0.541) 4px inset;
+    width: 300px;
+    padding: 10px;
+
+    background-color: white;
+}
+
+.calculator-screen-text{
+    margin: 0px;
+    font-size: x-large;
+    text-align: right;
+} 
+
+.calculator-buttons-container{
+    /* border: red 1px solid; */
+    width: 324px;
+    height: 348px;
+    padding: 5px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+}
+
+button{
+    flex: 1 1 0; 
+    
+    background-color: rgba(0, 0, 0, 0.911);
+    color: white;
+    
+    border-radius: 15px 15px 25px 25px;
+
+    font-size: x-large;
+    font-weight:300;
+
+}
+
+.calculator-row{
+    display:flex; 
+    flex: 1; 
+    justify-content: space-between;
+    gap: 15px;
+}
+
+
+#btn0{
+    flex: 2.5 2 0;
+}
+
+#btnDot{
+    flex: 1 1 0;
+}
+
+#btnEqual{
+    flex: 1 1 0;
+}
+
+
+
+.btnOrange{
+    background-color: rgba(255, 115, 0, 0.842);
+    color: black;
+    border-radius: 15px 15px 25px 25px;
+}
+
+
+
+span{
+    color: rgb(46, 46, 231);
 }
