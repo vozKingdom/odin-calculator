@@ -1,35 +1,61 @@
+// missino statement
 console.log('~ final hours. make it count. ~') 
+// missino statement
 
 
 
-//select display screen
+//SELECT calculator display screen
 const screen = document.querySelector('.calculator-screen-text')
 
-
-//select all btns. then convert nodelist to array
+//SELECT ALL buttons. then convert NodeList to Array
 const btnsNodeList = document.querySelectorAll('button')
 const btns = Array.from(btnsNodeList);
 
 
-//setup btn 'click' event listener 
 
+//VARIABLES DECLARATION
+let numA;
+let numB;
+let operator;
+
+const OPERATORS = '+-*/%'
+const NUMBERS = '1234567890' 
+
+
+
+//REGISTER EVENT LISTENER for buttons. listen for 'CLICK'  
 btns.forEach((btn)=>btn.addEventListener('click', (event)=>{
 
-    console.log(operator)
+    //debug
+    // console.log(operator)
+    // console.log(numA)
+    // console.log(numB)
+
 
     let input = btn.textContent
 
-        if(input == '='){
+
+        //EXECUTE calculation
+        if((input == '=') &&
+           (numA) &&
+           (operator) &&
+           (numB)
+        ){
             let ans = operate(numA, operator, numB)
-            return screen.textContent = ans
-        }
+            
+            screen.textContent = ans
+
+            numA = ans;
+            numB = undefined;
+            operator = undefined;
+        } 
 
 
-
-        if((!OPERATORS.includes(input)) &&
+        //ASSIGN numA
+        if((NUMBERS.includes(input)) &&
            (!operator)
         ){
-            console.log('numA clicked')
+            //console.log('numA clicked')
 
             if (!numA){
                 numA = input
@@ -40,21 +66,22 @@ btns.forEach((btn)=>btn.addEventListener('click', (event)=>{
             screen.textContent = numA
         }
 
-
+        //ASSIGN operator
         if(OPERATORS.includes(input)){
-
-            console.log('OPERATOR clicked')
+            //console.log('OPERATOR clicked')
 
             operator = event.target.textContent
-            console.log(Boolean(operator))
+            //console.log(Boolean(operator))
 
             screen.textContent = operator
         }
 
-        if((!OPERATORS.includes(input)) &&
+
+        //ASSIGN numB 
+        if((NUMBERS.includes(input)) &&
            (operator))
             {
-            console.log('numB clicked')
+            //console.log('numB clicked')
 
             if (!numB){
                 numB = input
@@ -66,51 +93,44 @@ btns.forEach((btn)=>btn.addEventListener('click', (event)=>{
         }
 
 
-
-
-
-
-
-        console.log(`${numA} - this is numA`)
-        console.log(`(${numA},${operator}) - this is (numA, operator)`)
-        console.log(`(${numA},${operator},${numB}) - this is (numA, operator, numB)`)
-        // else {
-        //     screen.textContent = input
-        //     num1 = input
-        // }
-
-
-        if((input === 'C') ||
-           (input === 'Del')
-          ){
-            console.log('ORANGE MAN clicked')
+        //RESET calculator
+        if(input === 'C'){
+            console.log('`C` clicked')
 
             numA = undefined
             numB = undefined
             operator = undefined
 
-            return screen.textContent = 0
+            screen.textContent = 0
         } 
+
+        //`Del` calculator input 
+        if(input === 'Del'){
+         console.log('`Del` clicked')
+
+         numA = undefined
+         numB = undefined
+         operator = undefined
+
+         screen.textContent = 0
+     } 
+
+
+        //debug
+        console.log(
+        ` ~ UPDATE DETECTED ~ 
+        THE VARIABLES = (numA, operator, numB)
+        CURRENT STATUS = (${numA},${operator},${numB})`)
+
+
     })
 )
 
 
 
 
-let numA;
-let numB;
-let operator;
 
-
-const OPERATORS = '+-*/%'
-
-
-
-
-
-
-
-
+// FUNCTIONS DECLARATION for calculator operations
 function operate(num1, operator, num2){
     if (operator == '+') return add(num1, num2) 
     if (operator == '-') return subtract(num1, num2) 

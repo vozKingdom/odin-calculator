@@ -29,6 +29,8 @@ body{
 .calculator-brand{
     /* border: red 1px solid; */
     align-self: flex-end;
+
+    font-size: larger;
 }
 
 .calculator-screen {
@@ -96,6 +98,8 @@ button{
     background-color: rgba(255, 115, 0, 0.842);
     color: black;
     border-radius: 15px 15px 25px 25px;
+
+    font-weight: 600;
 }
 
 
