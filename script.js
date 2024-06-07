@@ -39,12 +39,29 @@ btns.forEach((btn)=>btn.addEventListener('click', (event)=>{
     // console.log((OPERATORS.includes(input)))
 
 
+
     //EXECUTE calculation with '=' operator
         if((input == '=') &&
            (numA) &&
            (operator) &&
            (numB)
         ){
+            
+            //DIVIDE / 0 prevention
+            if ((operator == '/') && 
+            (numB == 0)
+            ){
+                alert(`
+                    OTŌSAN!??
+                    - DIVIDE / 0 not possivle
+                    - enter again` )
+
+                numB =  undefined;
+                
+                return screen.textContent = `enter numbre >0` 
+            } 
+
+
             ans = operate(numA, operator, numB)
             
             screen.textContent = ans
@@ -54,12 +71,28 @@ btns.forEach((btn)=>btn.addEventListener('click', (event)=>{
             operator = undefined;
         } 
 
-    //EXECUTE calculation with '=' operator
+    //EXECUTE calculation with '!=' operator
         if((OPERATORS.includes(input)) &&
            (numA) &&
            (operator) &&
            (numB)
         ){
+
+            //DIVIDE / 0 prevention
+            if ((operator == '/') && 
+            (numB == 0)
+            ){
+                alert(`
+                    OTŌSAN!??
+                    - DIVIDE / 0 not possivle
+                    - enter again` )
+
+                numB =  undefined;
+                
+                return screen.textContent = `enter numbre >0` 
+            } 
+
+
             ans = operate(numA, operator, numB)
 
             numA = ans;
