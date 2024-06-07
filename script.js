@@ -34,14 +34,18 @@ btns.forEach((btn)=>btn.addEventListener('click', (event)=>{
 
     let input = btn.textContent
 
+    let ans;
+    
+    // console.log((OPERATORS.includes(input)))
 
-        //EXECUTE calculation
+
+    //EXECUTE calculation with '=' operator
         if((input == '=') &&
            (numA) &&
            (operator) &&
            (numB)
         ){
-            let ans = operate(numA, operator, numB)
+            ans = operate(numA, operator, numB)
             
             screen.textContent = ans
 
@@ -50,24 +54,22 @@ btns.forEach((btn)=>btn.addEventListener('click', (event)=>{
             operator = undefined;
         } 
 
-
-        //ASSIGN numA
-        if((NUMBERS.includes(input)) &&
-           (!operator)
+    //EXECUTE calculation with '=' operator
+        if((OPERATORS.includes(input)) &&
+           (numA) &&
+           (operator) &&
+           (numB)
         ){
-            //console.log('numA clicked')
+            ans = operate(numA, operator, numB)
 
-            if (!numA){
-                numA = input
-            } else {
-                numA += input
-            }
-            
-            screen.textContent = numA
-        }
+            numA = ans;
+            operator = btn.textContent;
+            numB = undefined;
 
-        //ASSIGN operator
-        if(OPERATORS.includes(input)){
+            screen.textContent = ans
+        } else if ((OPERATORS.includes(input) &&
+                   (!operator))
+                ){
             //console.log('OPERATOR clicked')
 
             operator = event.target.textContent
@@ -77,7 +79,25 @@ btns.forEach((btn)=>btn.addEventListener('click', (event)=>{
         }
 
 
-        //ASSIGN numB 
+
+    //ASSIGN numA
+        if((NUMBERS.includes(input)) &&
+           (!operator)
+        ){
+            //console.log('numA clicked')
+            if(ans){
+                numA = ans;
+            } else if (!numA){
+                numA = input
+            } else {
+                numA += input
+            }
+            
+            screen.textContent = numA
+        }
+
+
+    //ASSIGN numB 
         if((NUMBERS.includes(input)) &&
            (operator))
             {
@@ -93,10 +113,11 @@ btns.forEach((btn)=>btn.addEventListener('click', (event)=>{
         }
 
 
-        //RESET calculator
+    //RESET calculator
         if(input === 'C'){
-            console.log('`C` clicked')
+            //console.log('`C` clicked')
 
+            //RESET VARIABLES + SCREEN
             numA = undefined
             numB = undefined
             operator = undefined
@@ -104,23 +125,55 @@ btns.forEach((btn)=>btn.addEventListener('click', (event)=>{
             screen.textContent = 0
         } 
 
-        //`Del` calculator input 
+    //`Del` calculator input 
         if(input === 'Del'){
-         console.log('`Del` clicked')
+         //console.log('`Del` clicked')
 
-         numA = undefined
-         numB = undefined
-         operator = undefined
+         current = screen.textContent
 
-         screen.textContent = 0
+         //DELETE numA or numB end character
+         if(current == numB){
+             if(numB.length == 1){
+                 screen.textContent = '...'
+                 numB = undefined;
+
+             } else if (numB.length > 1){
+                 numB = numB.slice(0, -1)   
+                 screen.textContent = numB
+             }
+         } else if (current == numA){
+            if(numA.length == 1){
+                screen.textContent = '...'
+                numA = undefined;
+
+            } else if (numA.length > 1){
+                numA = numA.slice(0, -1)   
+                //.slice(0, -1)  
+                // 0 specifies strings FIRST character. 
+                // -1 specifies last character.
+                // .slice() will slice, and keep everything from First Character `uptill` Last Character     
+
+                screen.textContent = numA
+            }
+        }
+
+        if(OPERATORS.includes(current)){
+            operator = undefined;
+            screen.textContent = '...'
+        }
+
+
+        
+
+
      } 
 
 
         //debug
         console.log(
-        ` ~ UPDATE DETECTED ~ 
-        THE VARIABLES = (numA, operator, numB)
-        CURRENT STATUS = (${numA},${operator},${numB})`)
+        `  - UPDATE - 
+        (numA, operator, numB)
+        (${numA},${operator},${numB})`)
 
 
     })
