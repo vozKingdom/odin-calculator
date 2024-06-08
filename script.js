@@ -34,7 +34,13 @@ btns.forEach((btn)=>btn.addEventListener('click', (event)=>{
 
     let input = btn.textContent
 
+    let current = screen.textContent
+
     let ans;
+
+
+
+
     
     // console.log((OPERATORS.includes(input)))
 
@@ -63,7 +69,7 @@ btns.forEach((btn)=>btn.addEventListener('click', (event)=>{
 
 
             ans = operate(numA, operator, numB)
-            
+
             screen.textContent = ans
 
             numA = ans;
@@ -113,11 +119,58 @@ btns.forEach((btn)=>btn.addEventListener('click', (event)=>{
 
 
 
+
+    //DOT POINT feature
+        if(input == '.'){
+            //console.log('. DOT CLICKED')
+
+
+            if(!operator){
+                //console.log('numA DOT clicked')
+
+                if(!numA){
+                    screen.textContent = '0.'
+                    numA = '0.'}
+
+                else if(numA.includes('.')){
+                    return alert(`you entered: '${numA}.'
+                    mandate: double dots not allowed`)
+                }
+                else{
+
+                numA += '.'
+                screen.textContent = numA
+                }
+
+            } else if(operator){
+               //console.log('numB DOT clicked')
+               
+               if(!numB){
+                screen.textContent = '0.'
+                numB = '0.'
+
+                } else if(operator&&!numB){
+                    screen.textContent = '.'
+
+                } else if(numB.includes('.')){
+                    return alert(`you entered: '${numB}.' 
+                    mandate: double dots not allowed`)
+
+                } else {
+                    numB += '.'
+                    screen.textContent = numB
+                }
+              } 
+        }
+    
+
     //ASSIGN numA
         if((NUMBERS.includes(input)) &&
            (!operator)
         ){
             //console.log('numA clicked')
+
+
             if(ans){
                 numA = ans;
             } else if (!numA){
@@ -125,8 +178,8 @@ btns.forEach((btn)=>btn.addEventListener('click', (event)=>{
             } else {
                 numA += input
             }
-            
             screen.textContent = numA
+
         }
 
 
@@ -189,22 +242,13 @@ btns.forEach((btn)=>btn.addEventListener('click', (event)=>{
                 screen.textContent = numA
             }
         }
+    }
 
-        if(OPERATORS.includes(current)){
-            operator = undefined;
-            screen.textContent = '...'
-        }
-
-
-        
-
-
-     } 
 
 
         //debug
         console.log(
-        `  - UPDATE - 
+        `             - UPDATE - 
         (numA, operator, numB)
         (${numA},${operator},${numB})`)
 
