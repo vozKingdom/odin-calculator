@@ -1,19 +1,4 @@
-// missino statement
-console.log('~ final hours. make it count. ~') 
-// missino statement
-
-
-
-//SELECT calculator display screen
-const screen = document.querySelector('.calculator-screen-text')
-
-//SELECT ALL buttons. then convert NodeList to Array
-const btnsNodeList = document.querySelectorAll('button')
-const btns = Array.from(btnsNodeList);
-
-
-
-//VARIABLES DECLARATION
+//(#1) global variables
 let numA;
 let numB;
 let operator;
@@ -24,19 +9,23 @@ const OTHER = '=.CEnterDelete'
 
 
 
+//(#2) DOM elements 
+const screen = document.querySelector('.calculator-screen-text')
+
+const btnsNodeList = document.querySelectorAll('button')
+const btns = Array.from(btnsNodeList);
 
 
-//REGISTER  event listener  for button 'click' event
+
+//(#3) event handlers
 btns.forEach((btn)=>btn.addEventListener('click', operationEVERLASTING));
 
-//REGISTER  event listener  for 'keypress' event
 document.addEventListener('keypress', operationEVERLASTING);
 
 
 
-
-
-
+//(#4) functions
+ //(#4a) function directory 
 function operationEVERLASTING(event){
 
     //debug
@@ -44,8 +33,8 @@ function operationEVERLASTING(event){
     // console.log(numA)
     // console.log(numB)
 
-
     //console.log(event)
+
 
     let input;
     let ans;
@@ -58,12 +47,10 @@ function operationEVERLASTING(event){
         if(input == 'Enter'){input = '='}
         if(input == 'Delete'){input = 'Del'}
 
-        
         //debug 
         /*
         console.log(`(event.key, input  = ${event.key}, ${input}`)
         console.log(`(OPERATORS, NUMBERS, OTHER = ${(OPERATORS.includes(input))}, ${(NUMBERS.includes(input))}, ${OTHER.includes(input)}`)
-        
         
         if((OPERATORS.includes(input))||(NUMBERS.includes(input))||(OTHER.includes(input)))
             {console.log("CORRECT")} else{
@@ -71,16 +58,12 @@ function operationEVERLASTING(event){
                 return; 
             }
         */
-        
-
     } else if (event.type == 'click'){
 
         input = event.target.textContent
     }
-    
     // console.log(input)
     
-
 
     //launch calculation
     if(((input == '=')||(OPERATORS.includes(input))) &&
@@ -117,8 +100,6 @@ function operationEVERLASTING(event){
             operator = undefined;
         }
     }
-
-
         
     //SET operator
     if ((OPERATORS.includes(input) &&
@@ -136,9 +117,6 @@ function operationEVERLASTING(event){
         screen.textContent = operator
     }
 
-
-
-
     //enable DOT POINT usage
     if (input == '.'){
         if(!operator){
@@ -147,8 +125,6 @@ function operationEVERLASTING(event){
             numB = controlDotPoint(numB)
         }
     }
-
-
 
     //SET each OPERAND
     if(NUMBERS.includes(input)){
@@ -162,7 +138,6 @@ function operationEVERLASTING(event){
             numB = setOperand(numB, operator, ans, input)
         }
     } 
-
 
     //enable Del function 
     if(input === 'Del'){
@@ -178,7 +153,6 @@ function operationEVERLASTING(event){
         }
     }
 
-
     //RESET calculator
         if(input === 'C'){
             //console.log('`C` clicked')
@@ -191,31 +165,32 @@ function operationEVERLASTING(event){
             screen.textContent = 0
         } 
 
-
-
         //debug
         console.log(
         `             - UPDATE - 
         (numA, operator, numB)
         (${numA},${operator},${numB})`)
-
-
     }
     
 
 
+// (#4b) single functions
 
+function setOperand(num, operator, ans, input){
+    if (!num){
+        num = input
+    } else {
+        num += input
+    }
 
-
+    screen.textContent = num
     
-// !HEIR-PIECE  -  FUNCTIONs
+    return num
+}
 
-// SEND DATA TO OPERATE
 function startOperation(numA, operator, numB, input){
     // console.log('inside function')
     // console.log(input)
-
-
     
     ans = operate(numA, operator, numB)
 
@@ -224,8 +199,6 @@ function startOperation(numA, operator, numB, input){
     return ans
 }
 
-
-// PREVENT DOUBLE DOT POINTS
 function controlDotPoint(num){
     if(!num){
         screen.textContent = '0.'
@@ -244,23 +217,6 @@ function controlDotPoint(num){
     }
 }
 
-
-
-// SET OPERANDS
-function setOperand(num, operator, ans, input){
-    if (!num){
-        num = input
-    } else {
-        num += input
-    }
-
-    screen.textContent = num
-    
-    return num
-}
-
-
-// UNDO feature
 function undoScreen(num){
     if(num.length == 1){
         screen.textContent = '...'
@@ -276,10 +232,6 @@ function undoScreen(num){
 }
 
 
-
-
-
-// MAIN OPERATION - calculator operations
 function operate(num1, operator, num2){
     if (operator == '+') return add(num1, num2) 
     if (operator == '-') return subtract(num1, num2) 
@@ -287,12 +239,10 @@ function operate(num1, operator, num2){
     if (operator == '/') return divide(num1, num2) 
 }
 
-
 function add(num1, num2){
     total = +num1 + +num2    
     return total 
 }
-
 
 function subtract(num1, num2){
     total = num1 - num2
@@ -303,7 +253,6 @@ function multiply(num1, num2){
     total = num1 * num2
     return total 
 }
-
 
 function divide(num1, num2){
     total = num1/num2
